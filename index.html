@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Interactiva: Funciones Lambda en Python</title>
+    <style>
+        /* === ESTILOS GLOBALES Y DE ESCRITORIO === */
+        body {
+            font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 0;
+            padding: 40px; display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; box-sizing: border-box; transition: padding 0.3s ease;
+        }
+
+        .slideshow-container { position: relative; width: 90%; max-width: 960px; }
+        
+        .slide {
+            display: none; background-color: #fff; border: 1px solid #ccc;
+            height: 540px; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            flex-direction: column; justify-content: center; position: relative;
+            box-sizing: border-box;
+        }
+
+        .fade { animation-name: fade; animation-duration: 0.5s; }
+        @keyframes fade { from {opacity: .4} to {opacity: 1} }
+
+        .prev, .next {
+            cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+            width: 50px; height: 50px; background-color: #cccccc; color: #333;
+            border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex; justify-content: center; align-items: center;
+            font-weight: bold; font-size: 24px; transition: all 0.3s ease;
+            user-select: none; z-index: 10;
+        }
+
+        .prev { left: -70px; }
+        .next { right: -70px; }
+        .prev:hover, .next:hover { background-color: #aaaaaa; }
+
+        .slide h1 { font-size: 3.5em; text-align: center; border-bottom: 4px solid #11a800; padding-bottom: 20px; color: #005A9C; }
+        .slide h2 { font-size: 2.8em; margin-top: 0; margin-bottom: 30px; text-align: center; color: #005A9C; }
+        .single-content { text-align: center; }
+        .single-content p { font-size: 1.5em; color: #444; }
+        .single-content pre { font-size: 1.4em; display: inline-block; text-align: left; max-width: 100%; }
+        pre { background-color: #2d3436; color: #fff; padding: 15px; border-radius: 5px; font-size: 1.1em; white-space: pre-wrap; }
+        .footer { position: absolute; bottom: 20px; right: 40px; font-size: 1em; color: #888; }
+
+        /* === MEDIA QUERIES === */
+        @media screen and (max-width: 768px) {
+            body { padding: 15px; }
+            .slideshow-container { width: 100%; padding-bottom: 75px; }
+            .slide { height: auto; min-height: 75vh; padding: 20px 25px; }
+            .prev, .next { top: auto; bottom: 15px; width: 45px; height: 45px; }
+            .prev { left: 50%; transform: translateX(-110%); }
+            .next { left: 50%; transform: translateX(10%); right: auto; }
+            .slide h1 { font-size: 2.2em; }
+            .slide h2 { font-size: 1.8em; }
+            .single-content p { font-size: 1.1em; }
+            .single-content pre { font-size: 1em; }
+            .footer { font-size: 0.8em; right: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slideshow-container">
+        
+        <div class="slide fade">
+            <h1>Cheat Sheet de Python</h1>
+            <h2 style="color:#333; border:none;">Funciones Lambda</h2>
+            <div class="footer">1 / 11</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>¿Qué es una Lambda?</h2>
+            <div class="single-content"><p>Una función pequeña, anónima (sin nombre) y de una sola línea.</p></div>
+            <div class="footer">2 / 11</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Sintaxis de una Lambda</h2>
+            <div class="single-content"><p>Se define con la palabra clave `lambda`, seguida de los argumentos y la expresión.</p><pre><code>lambda argumentos: expresion</code></pre></div>
+            <div class="footer">3 / 11</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Lambda vs. Función Normal</h2>
+            <div class="single-content"><p>Son equivalentes, pero la lambda es más concisa.</p><pre><code># Función normal
+def sumar(a, b):
+    return a + b
+
+# Función lambda
+sumar_lambda = lambda a, b: a + b
+
+print(sumar(2, 3)) # 5
+print(sumar_lambda(2, 3)) # 5</code></pre></div>
+            <div class="footer">4 / 11</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>¿Por qué usar Lambdas?</h2>
+            <div class="single-content"><p>Son ideales para funciones cortas y "desechables" que se usan como argumento de otra función.</p></div>
+            <div class="footer">5 / 11</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Uso Común: <code>sort()</code> y <code>sorted()</code></h2>
+            <div class="single-content"><p>Para definir una clave de ordenamiento simple y al momento.</p><pre><code># Ordenar por el segundo elemento de cada tupla
+puntos = [(1, 5), (3, 2), (5, 8)]
+puntos.sort(key=lambda item: item[1])
+
+print(puntos) # [(3, 2), (1, 5), (5, 8)]</code></pre></div>
+            <div class="footer">6 / 11</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Uso Común: <code>map()</code></h2>
+            <div class="single-content"><p>Aplica una función a cada elemento de un iterable.</p><pre><code>numeros = [1, 2, 3, 4]
+# Elevar cada número al cuadrado
+cuadrados = list(map(lambda x: x**2, numeros))
+
+print(cuadrados) # [1, 4, 9, 16]</code></pre></div>
+            <div class="footer">7 / 11</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Uso Común: <code>filter()</code></h2>
+            <div class="single-content"><p>Filtra elementos de un iterable según una condición.</p><pre><code>numeros = [1, 2, 3, 4, 5, 6]
+# Obtener solo los números pares
+pares = list(filter(lambda x: x % 2 == 0, numeros))
+
+print(pares) # [2, 4, 6]</code></pre></div>
+            <div class="footer">8 / 11</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Limitaciones</h2>
+            <div class="single-content"><p>Solo pueden contener una única expresión, no múltiples líneas ni declaraciones como `if` o `for`.</p><pre><code># INCORRECTO:
+# lambda x: if x > 10: return True
+
+# CORRECTO (usando un ternario):
+lambda x: True if x > 10 else False</code></pre></div>
+            <div class="footer">9 / 11</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Llamada Inmediata (IIFE)</h2>
+            <div class="single-content"><p>Se puede definir y llamar a una lambda en la misma línea (uso poco común).</p><pre><code>resultado = (lambda x, y: x + y)(10, 5)
+
+print(resultado) # 15</code></pre></div>
+            <div class="footer">10 / 11</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Conclusión</h2>
+            <div class="single-content"><p>Las lambdas son una herramienta de conveniencia para escribir código más corto y legible en situaciones específicas.</p></div>
+            <div class="footer">11 / 11</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <script>
+        let slideIndex = 1; showSlides(slideIndex);
+        function plusSlides(n) { showSlides(slideIndex += n); }
+        function showSlides(n) {
+            let i, slides = document.getElementsByClassName("slide");
+            if (n > slides.length) { slideIndex = 1 } 
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
+            slides[slideIndex - 1].style.display = "flex";
+        }
+    </script>
+
+</body>
+</html>
